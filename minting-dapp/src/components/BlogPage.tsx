@@ -58,7 +58,7 @@ const BlogPage = () => {
 
   useEffect(() => {
     let num = (window.innerHeight - 70) / 30;
-    setNumbers(parseInt(num));
+    setNumbers(Math.floor(num));
   }, []);
 
   return (

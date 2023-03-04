@@ -47,7 +47,7 @@ const BLOG = styled(NavLink)`
   text-decoration: none;
   z-index: 1;
 `;
-const WORK = styled(NavLink)`
+const WORK = styled(NavLink)<{ click: number }>`
   color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
 
   position: absolute;
@@ -69,7 +69,7 @@ const BottomBar = styled.div`
   justify-content: space-evenly;
 `;
 
-const ABOUT = styled(NavLink)`
+const ABOUT = styled(NavLink)<{ click: number }>`
   color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
   text-decoration: none;
   z-index: 1;
@@ -89,7 +89,7 @@ to{
 }
 `;
 
-const Center = styled.button`
+const Center = styled.button<{ click: boolean }>`
   position: absolute;
   top: ${(props) => (props.click ? "85%" : "50%")};
   left: ${(props) => (props.click ? "92%" : "50%")};
@@ -115,7 +115,7 @@ const Center = styled.button`
   }
 `;
 
-const DarkDiv = styled.div`
+const DarkDiv = styled.div<{ click: boolean }>`
   position: absolute;
   top: 0;
   background-color: #000;
@@ -154,7 +154,6 @@ const Main = () => {
           <motion.h2
             initial={{
               y: -200,
-              transition: { type: "spring", duration: 1.5, delay: 1 },
             }}
             animate={{
               y: 0,
@@ -170,7 +169,6 @@ const Main = () => {
           <motion.h2
             initial={{
               y: -200,
-              transition: { type: "spring", duration: 1.5, delay: 1 },
             }}
             animate={{
               y: 0,
@@ -186,7 +184,6 @@ const Main = () => {
           <motion.h2
             initial={{
               y: -200,
-              transition: { type: "spring", duration: 1.5, delay: 1 },
             }}
             animate={{
               y: 0,
@@ -203,7 +200,6 @@ const Main = () => {
             <motion.h2
               initial={{
                 y: 200,
-                transition: { type: "spring", duration: 1.5, delay: 1 },
               }}
               animate={{
                 y: 0,
@@ -219,7 +215,6 @@ const Main = () => {
             <motion.h2
               initial={{
                 y: 200,
-                transition: { type: "spring", duration: 1.5, delay: 1 },
               }}
               animate={{
                 y: 0,

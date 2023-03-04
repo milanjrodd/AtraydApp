@@ -64,7 +64,7 @@ const Text = styled.div`
   }
 `;
 
-const Intro = () => {
+const Intro: React.FC<{ click: boolean }> = () => {
   return (
     <Box
       initial={{ height: 0 }}
