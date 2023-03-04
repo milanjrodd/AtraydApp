@@ -7,10 +7,10 @@ import LogoComponent from "./LogoComponent";
 import SocialIcons from "./SocialIcons";
 import PowerButton from "./PowerButton";
 
-import { Work } from "../data/WorkData";
 import Card from "./Card";
 import { YinYang } from "./AllSvgs";
 import BigTitlte from "./BigTitlte";
+import { Works } from "../data/WorkData";
 
 const Box = styled.div`
   background-color: ${(props) => props.theme.body};
@@ -54,13 +54,15 @@ const container = {
 };
 
 const WorkPage = () => {
-  const ref = useRef(null);
-  const yinyang = useRef(null);
+  const ref = useRef<HTMLUListElement>(null);
+  const yinyang = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    if (!ref.current) return;
     let element = ref.current;
 
     const rotate = () => {
+      if (!yinyang.current) return;
       element.style.transform = `translateX(${-window.pageYOffset}px)`;
 
       return (yinyang.current.style.transform =
@@ -81,8 +83,8 @@ const WorkPage = () => {
         <PowerButton />
 
         <Main ref={ref} variants={container} initial="hidden" animate="show">
-          {Work.map((d) => (
-            <Card key={d.id} data={d} />
+          {Works.map((work) => (
+            <Card key={work.id} data={work} />
           ))}
         </Main>
         <Rotate ref={yinyang}>

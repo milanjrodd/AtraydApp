@@ -1,25 +1,35 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-
-const Text = styled.h1`
-position: fixed;
-top: ${props => props.top};
-left: ${props => props.left};
-right: ${props => props.right};
-color:${props => `rgba(${props.theme.textRgba},0.1)`};
-font-size: calc(5rem + 5vw);
-z-index:0;
-
-`
-
-
-const BigTitlte = (props) => {
-    return (
-        <Text  top={props.top}  left={props.left}  right={props.right}>
-            {props.text}
-        </Text>
-    )
+interface ITextProps {
+  top?: string;
+  left?: string;
+  right?: string;
 }
 
-export default BigTitlte
+const Text = styled.h1<ITextProps>`
+  position: fixed;
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  color: ${(props) => `rgba(${props.theme.textRgba},0.1)`};
+  font-size: calc(5rem + 5vw);
+  z-index: 0;
+`;
+
+interface IBigTitlteProps {
+  text: string;
+  top?: string;
+  left?: string;
+  right?: string;
+}
+
+const BigTitlte: React.FC<IBigTitlteProps> = (props) => {
+  return (
+    <Text top={props.top} left={props.left} right={props.right}>
+      {props.text}
+    </Text>
+  );
+};
+
+export default BigTitlte;

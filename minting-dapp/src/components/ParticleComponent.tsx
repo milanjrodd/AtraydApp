@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import ConfigDark from "../config/particlesjs-config.json";
-import ConfigLight from "../config/particlesjs-config-light.json";
+import ConfigDark from "../config/particlesjs-config";
+import ConfigLight from "../config/particlesjs-config-light";
 
 // import Particles from "react-particles-js"
 import Particles from "react-tsparticles";
@@ -15,12 +15,15 @@ const Box = styled.div`
   z-index: 0;
 `;
 
-const ParticlesComponent = (props) => {
-// This is new implementation where I have used react-tsparticles instead of react-particles-js
-  const particlesInit = async (main) => {
+interface IParticlesProps {
+  theme: string;
+}
+
+const ParticlesComponent: React.FC<IParticlesProps> = (props) => {
+  // This is new implementation where I have used react-tsparticles instead of react-particles-js
+  const particlesInit = async (main: any) => {
     await loadFull(main);
   };
-
 
   return (
     <Box>
@@ -28,7 +31,7 @@ const ParticlesComponent = (props) => {
         id="tsparticles"
         style={{ position: "absolute", top: 0 }}
         params={props.theme === "light" ? ConfigLight : ConfigDark}
-        init={particlesInit} 
+        init={particlesInit}
       />
     </Box>
   );

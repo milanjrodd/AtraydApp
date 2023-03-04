@@ -26,12 +26,19 @@ const PreDisplay = styled.div`
   right: 2rem;
 `;
 
-const AnchorComponent = (props) => {
-  const ref = useRef(null);
-  const hiddenRef = useRef(null);
+interface AnchorComponentProps {
+  number: number;
+}
+
+const AnchorComponent: React.FC<AnchorComponentProps> = (props) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const hiddenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
+      if (ref.current === null) return;
+      if (hiddenRef.current === null) return;
+
       let scrollPosition = window.pageYOffset;
       let windowSize = window.innerHeight;
       let bodyHeight = document.body.offsetHeight;

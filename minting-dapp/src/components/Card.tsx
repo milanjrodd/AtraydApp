@@ -90,7 +90,18 @@ const Item = {
   },
 };
 
-const Card = (props) => {
+interface ICardProps {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    tags: string[];
+    demo: string;
+    github: string;
+  };
+}
+
+const Card: React.FC<ICardProps> = (props) => {
   const { id, name, description, tags, demo, github } = props.data;
 
   return (

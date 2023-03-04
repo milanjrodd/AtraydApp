@@ -28,7 +28,11 @@ const Line = styled(motion.span)`
     props.color === "dark" ? DarkTheme.text : DarkTheme.body};
 `;
 
-const SocialIcons = (props) => {
+interface ISocialIconsProps {
+  theme?: string;
+}
+
+const SocialIcons: React.FC<ISocialIconsProps> = (props) => {
   return (
     <Icons>
       <motion.div

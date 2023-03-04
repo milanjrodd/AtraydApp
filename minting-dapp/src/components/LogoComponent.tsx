@@ -14,7 +14,11 @@ const Logo = styled.h1`
   z-index: 3;
 `;
 
-const LogoComponent = (props) => {
+interface ILogoProps {
+  theme?: string;
+}
+
+const LogoComponent: React.FC<ILogoProps> = (props) => {
   return <Logo color={props.theme}>CB</Logo>;
 };
 

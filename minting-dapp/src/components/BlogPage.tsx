@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import img from "./Images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg";
+import img from "./images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg";
 import LogoComponent from "./LogoComponent";
 import SocialIcons from "./SocialIcons";
 import PowerButton from "./PowerButton";

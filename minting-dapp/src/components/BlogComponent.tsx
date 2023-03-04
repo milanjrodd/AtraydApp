@@ -25,7 +25,7 @@ const Box = styled(motion.a)`
   }
 `;
 
-const Image = styled.div`
+const Image = styled.div<{ img: string }>`
   background-image: ${(props) => `url(${props.img})`};
   width: 100%;
   height: 60%;
@@ -75,7 +75,19 @@ const Item = {
   },
 };
 
-const BlogComponent = (props) => {
+interface IBlog {
+  name: string;
+  tags: string[];
+  date: string;
+  imgSrc: string;
+  link: string;
+}
+
+interface IBlogComponentsProps {
+  blog: IBlog;
+}
+
+const BlogComponent: React.FC<IBlogComponentsProps> = (props) => {
   const { name, tags, date, imgSrc, link } = props.blog;
   return (
     <Container variants={Item}>
@@ -83,8 +95,8 @@ const BlogComponent = (props) => {
         <Image img={imgSrc} />
         <Title>{name}</Title>
         <HashTags>
-          {tags.map((t, id) => {
-            return <Tag key={id}>#{t}</Tag>;
+          {tags.map((tag, i) => {
+            return <Tag key={i}>#{tag}</Tag>;
           })}
         </HashTags>
         <Date>{date}</Date>
