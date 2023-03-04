@@ -3,14 +3,14 @@ import styled, { ThemeProvider } from "styled-components";
 import { DarkTheme } from "./Themes";
 import { motion } from "framer-motion";
 
-import LogoComponent from "../subComponents/LogoComponent";
-import SocialIcons from "../subComponents/SocialIcons";
-import PowerButton from "../subComponents/PowerButton";
+import LogoComponent from "./LogoComponent";
+import SocialIcons from "./SocialIcons";
+import PowerButton from "./PowerButton";
 
 import { Work } from "../data/WorkData";
-import Card from "../subComponents/Card";
+import Card from "./Card";
 import { YinYang } from "./AllSvgs";
-import BigTitlte from "../subComponents/BigTitlte";
+import BigTitlte from "./BigTitlte";
 
 const Box = styled.div`
   background-color: ${(props) => props.theme.body};
