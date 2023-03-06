@@ -50,6 +50,8 @@
     "root-hash": "hardhat generate-root-hash",
     "proof": "hardhat generate-proof",
     "deploy": "hardhat run scripts/1_deploy.ts",
+    "deploy-local": "hardhat run scripts/1_deploy.ts --network localhost",
+    "deploy-dev": "hardhat run scripts/1_deploy.ts --network goerli",
     "verify": "hardhat verify --constructor-args config/ContractArguments.ts",
     "whitelist-open": "hardhat run scripts/2_whitelist_open.ts",
     "whitelist-close": "hardhat run scripts/3_whitelist_close.ts",
