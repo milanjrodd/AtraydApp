@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import Me from "../images/profile-img.png";
+import Me from "../assets/images/profile-img.png";
+import Dapp from "../scripts/react/Dapp";
 
 const Box = styled(motion.div)`
   position: absolute;
@@ -73,9 +74,7 @@ const Intro: React.FC<{ click: boolean }> = () => {
     >
       <SubBox>
         <Text>
-          <h1>Hi,</h1>
-          <h3>I'm CodeBucks.</h3>
-          <h6>I design and Code simple yet beautiful websites.</h6>
+          <Dapp />
         </Text>
       </SubBox>
       <SubBox>

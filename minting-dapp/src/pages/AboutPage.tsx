@@ -1,13 +1,13 @@
 import React from "react";
 import styled, { keyframes, ThemeProvider } from "styled-components";
-import { DarkTheme } from "./Themes";
+import { darkTheme } from "../styles/Themes";
 
-import LogoComponent from "./LogoComponent";
-import SocialIcons from "./SocialIcons";
-import PowerButton from "./PowerButton";
-import ParticleComponent from "./ParticleComponent";
-import BigTitle from "./BigTitlte";
-import astronaut from "../images/spaceman.png";
+import LogoComponent from "../components/LogoComponent";
+import SocialIcons from "../components/SocialIcons";
+import PowerButton from "../components/PowerButton";
+import ParticleComponent from "../components/ParticleComponent";
+import BigTitle from "../components/BigTitlte";
+import astronaut from "../assets/images/spaceman.png";
 
 const Box = styled.div`
   background-color: ${(props) => props.theme.body};
@@ -56,7 +56,7 @@ const Main = styled.div`
 
 const AboutPage = () => {
   return (
-    <ThemeProvider theme={DarkTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Box>
         <LogoComponent theme="dark" />
         <SocialIcons theme="dark" />

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import img from "./images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg";
-import LogoComponent from "./LogoComponent";
-import SocialIcons from "./SocialIcons";
-import PowerButton from "./PowerButton";
+import img from "../assets/images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg";
+import LogoComponent from "../components/LogoComponent";
+import SocialIcons from "../components/SocialIcons";
+import PowerButton from "../components/PowerButton";
 
 import { Blogs } from "../data/BlogData";
-import BlogComponent from "./BlogComponent";
-import AnchorComponent from "./Anchor";
-import BigTitle from "./BigTitlte";
+import BlogComponent from "../components/BlogComponent";
+import AnchorComponent from "../components/Anchor";
+import BigTitle from "../components/BigTitlte";
 import { motion } from "framer-motion";
 
 const MainContainer = styled(motion.div)`

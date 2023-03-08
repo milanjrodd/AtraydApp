@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
-import music from "../assets/audio/u-said-it-v13-1167.mp3";
+// import music from "../assets/audio/u-said-it-v13-1167.mp3";
 
 const Box = styled.div`
   display: flex;
@@ -75,7 +75,7 @@ const SoundBar = () => {
       <Line click={click} />
       <Line click={click} />
 
-      <audio src={music} ref={ref} loop />
+      {/* <audio src={music} ref={ref} loop /> */}
     </Box>
   );
 };

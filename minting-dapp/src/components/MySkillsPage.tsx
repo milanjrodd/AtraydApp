@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { lightTheme } from "./Themes";
+import { lightTheme } from "../styles/Themes";
 import { Design, Develope } from "./AllSvgs";
 
 import LogoComponent from "./LogoComponent";
