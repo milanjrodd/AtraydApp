@@ -9,6 +9,8 @@ import SoundBar from "./components/SoundBar";
 import { lightTheme } from "./styles/Themes";
 import WorkPage from "./pages/WorkPage";
 import GlobalStyle from "./styles/globalStyles";
+import "./index.css";
+import "./App.css";
 
 function App() {
   const location = useLocation();
