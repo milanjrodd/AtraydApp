@@ -99,7 +99,6 @@ const SubBox = styled.div`
   }
   ${mediaQueries(50)`
       width: 100%;
-      height: 50%;
       .pic {
         width: 70%;  
       }
@@ -175,7 +174,7 @@ const Intro: React.FC<{ click: boolean }> = () => {
           <Dapp />
         </Text>
       </SubBox>
-      <SubBox>
+      {/* <SubBox>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -183,7 +182,7 @@ const Intro: React.FC<{ click: boolean }> = () => {
         >
           <img className="pic" src={Me} alt="Profile Pic" />
         </motion.div>
-      </SubBox>
+      </SubBox> */}
     </Box>
   );
 };
