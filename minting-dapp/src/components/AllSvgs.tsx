@@ -4,6 +4,7 @@ interface ISvgProps {
   fill?: string;
   className?: string;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 export const PowerBtn: React.FC<ISvgProps> = (props) => {

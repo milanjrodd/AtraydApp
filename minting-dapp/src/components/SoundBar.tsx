@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { mediaQueries } from "../styles/Themes";
 
 // import music from "../assets/audio/u-said-it-v13-1167.mp3";
 
 const Box = styled.div`
   display: flex;
   cursor: pointer;
+
   position: fixed;
   left: 8rem;
   top: 3rem;
@@ -26,18 +28,23 @@ const Box = styled.div`
   & > *:nth-child(5) {
     animation-delay: 0.8s;
   }
+
+  ${mediaQueries(40)`
+    left:1rem;
+    top:10rem;
+  `};
 `;
 
 const play = keyframes`
-0%{
+  0%{
     transform:scaleY(1);
-}
-50%{
+  }
+  50%{
     transform:scaleY(2);
-}
-100%{
+  }
+  100%{
     transform:scaleY(1);
-}
+  }
 `;
 const Line = styled.span<{ click: boolean }>`
   background: ${(props) => props.theme.text};
@@ -48,6 +55,11 @@ const Line = styled.span<{ click: boolean }>`
   height: 1rem;
   width: 2px;
   margin: 0 0.1rem;
+
+  ${mediaQueries(40)`
+    height:0.5rem;
+    width:1px;
+  `};
 `;
 
 const SoundBar = () => {

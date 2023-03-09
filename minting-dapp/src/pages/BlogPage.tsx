@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import styled from "styled-components";
 import img from "../assets/images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg";
-import LogoComponent from "../components/LogoComponent";
-import SocialIcons from "../components/SocialIcons";
-import PowerButton from "../components/PowerButton";
 
 import { Blogs } from "../data/BlogData";
 import BlogComponent from "../components/BlogComponent";
-import AnchorComponent from "../components/Anchor";
-import BigTitle from "../components/BigTitlte";
 import { motion } from "framer-motion";
+import { mediaQueries } from "../styles/Themes";
+import Loading from "../components/Loading";
+
+const AnchorComponent = lazy(() => import("../components/Anchor"));
+const SocialIcons = lazy(() => import("../components/SocialIcons"));
+const PowerButton = lazy(() => import("../components/PowerButton"));
+const LogoComponent = lazy(() => import("../components/LogoComponent"));
+const BigTitle = lazy(() => import("../components/BigTitlte"));
 
 const MainContainer = styled(motion.div)`
   background-image: url(${img});
@@ -32,12 +35,21 @@ const Center = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 10rem;
+
+  ${mediaQueries(30)`
+    padding-top: 7rem;
+  `};
 `;
 
-const Grid = styled.div`
+const Grid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(2, minmax(calc(10rem + 15vw), 1fr));
+
   grid-gap: calc(1rem + 2vw);
+
+  ${mediaQueries(50)`
+    grid-template-columns: 100%;
+  `};
 `;
 
 // Framer-motion config
@@ -62,30 +74,32 @@ const BlogPage = () => {
   }, []);
 
   return (
-    <MainContainer
-      variants={container}
-      initial="hidden"
-      animate="show"
-      exit={{
-        opacity: 0,
-        transition: { duration: 0.5 },
-      }}
-    >
-      <Container>
-        <LogoComponent />
-        <PowerButton />
-        <SocialIcons />
-        <AnchorComponent number={numbers} />
-        <Center>
-          <Grid>
-            {Blogs.map((blog) => {
-              return <BlogComponent key={blog.id} blog={blog} />;
-            })}
-          </Grid>
-        </Center>
-        <BigTitle text="BLOG" top="5rem" left="5rem" />
-      </Container>
-    </MainContainer>
+    <Suspense fallback={<Loading />}>
+      <MainContainer
+        variants={container}
+        initial="hidden"
+        animate="show"
+        exit={{
+          opacity: 0,
+          transition: { duration: 0.5 },
+        }}
+      >
+        <Container>
+          <LogoComponent />
+          <PowerButton />
+          <SocialIcons />
+          <AnchorComponent number={numbers} />
+          <Center>
+            <Grid variants={container} initial="hidden" animate="show">
+              {Blogs.map((blog) => {
+                return <BlogComponent key={blog.id} blog={blog} />;
+              })}
+            </Grid>
+          </Center>
+          <BigTitle text="BLOG" top="5rem" left="5rem" />
+        </Container>
+      </MainContainer>
+    </Suspense>
   );
 };
 

@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Anchor, Link } from "./AllSvgs";
+import { mediaQueries } from "../styles/Themes";
 
 const Container = styled.div`
   position: relative;
+  ${mediaQueries(40)`
+    display:none;
+  `};
 `;
 const Slider = styled.div`
   position: fixed;
@@ -71,6 +75,7 @@ const AnchorComponent: React.FC<AnchorComponentProps> = (props) => {
           return (
             <Link
               key={id}
+              style={{ padding: "0.1rem 0" }}
               width={25}
               height={25}
               fill="currentColor"

@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Github } from "./AllSvgs";
+import { mediaQueries } from "../styles/Themes";
 
 const Box = styled(motion.li)`
   width: 16rem;
@@ -16,13 +16,35 @@ const Box = styled(motion.li)`
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid ${(props) => props.theme.body};
-  transition: all 0.2s ease;
 
+  transition: all 0.2s ease;
   &:hover {
     background-color: ${(props) => props.theme.body};
     color: ${(props) => props.theme.text};
     border: 1px solid ${(props) => props.theme.text};
   }
+
+  ${mediaQueries(50)`
+    width:16rem;
+    margin-right:6rem;
+    height:35vh;    
+  `};
+  ${mediaQueries(40)`
+    width:14rem;
+    margin-right:4rem;
+    height:35vh;
+  `};
+  ${mediaQueries(25)`
+    width:12rem;
+    margin-right:4rem;
+    height:35vh;
+    padding:1.5rem 1.5rem;
+  `};
+  ${mediaQueries(20)`
+    width:10rem;
+    margin-right:4rem;
+    height:40vh;
+  `};
 `;
 const Title = styled.h2`
   font-size: calc(1em + 0.5vw);
@@ -30,8 +52,15 @@ const Title = styled.h2`
 
 const Description = styled.h2`
   font-size: calc(0.8em + 0.3vw);
+
   font-family: "Karla", sans-serif;
   font-weight: 500;
+  ${mediaQueries(25)`
+    font-size:calc(0.7em + 0.3vw);
+`};
+  ${mediaQueries(20)`
+    font-size:calc(0.6em + 0.3vw);
+`};
 `;
 const Tags = styled.div`
   border-top: 2px solid ${(props) => props.theme.body};
@@ -45,6 +74,10 @@ const Tags = styled.div`
 const Tag = styled.span`
   margin-right: 1rem;
   font-size: calc(0.8em + 0.3vw);
+
+  ${mediaQueries(25)`
+    font-size:calc(0.7em);
+  `};
 `;
 
 const Footer = styled.footer`
@@ -69,6 +102,7 @@ const Link = styled.a`
 const Git = styled.a`
   color: inherit;
   text-decoration: none;
+
   ${Box}:hover & {
     & > * {
       fill: ${(props) => props.theme.text};
@@ -101,8 +135,8 @@ interface ICardProps {
   };
 }
 
-const Card: React.FC<ICardProps> = (props) => {
-  const { id, name, description, tags, demo, github } = props.data;
+const Card: React.FC<ICardProps> = ({ data }) => {
+  const { id, name, description, tags, demo, github } = data;
 
   return (
     <Box key={id} variants={Item}>
@@ -114,10 +148,10 @@ const Card: React.FC<ICardProps> = (props) => {
         })}
       </Tags>
       <Footer>
-        <Link href={demo} target="_blank">
+        <Link href={demo} rel="noreferrer" target="_blank">
           Visit
         </Link>
-        <Git href={github} target="_blank">
+        <Git href={github} rel="noreferrer" target="_blank">
           <Github width={30} height={30} />
         </Git>
       </Footer>
