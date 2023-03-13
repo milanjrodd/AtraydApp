@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import Me from "../assets/images/profile-img.png";
 import Dapp from "../scripts/react/Dapp";
-import { mediaQueries } from "../styles/Themes";
+import { darkTheme, lightTheme, mediaQueries } from "../styles/Themes";
+import { NewDapp } from "../scripts/react/new-dapp";
+import { useDappWeb3 } from "../contexts/dapp-web3.context";
+import MintWidget from "../scripts/react/MintWidget";
+import CollectionConfig from "../../../smart-contract/config/CollectionConfig";
 
 const Box = styled(motion.div)`
-  /* width: 50vw;
-height:50vh;
- */
   width: 55vw;
   display: flex;
   background: linear-gradient(
@@ -36,6 +37,7 @@ height:50vh;
   top: 50%;
   right: 0;
   transform: translate(-50%, -50%);
+  overflow: hidden;
 
   ${mediaQueries(1200)`
     width: 65vw;
@@ -85,10 +87,11 @@ height:50vh;
 
   //height:55vh;
 `;
-const SubBox = styled.div`
+const SubBox = styled(motion.div)`
   width: 50%;
   position: relative;
   display: flex;
+
   .pic {
     position: absolute;
     bottom: 0;
@@ -127,7 +130,7 @@ const Text = styled(motion.div)`
   font-size: calc(1rem + 1.5vw);
   color: ${(props) => props.theme.body};
   padding: 2rem;
-  cursor: pointer;
+  word-wrap: anywhere;
 
   display: flex;
   flex-direction: column;
@@ -151,9 +154,40 @@ const Text = styled(motion.div)`
     padding: 1rem;
   `};
 `;
+const DarkText = styled(motion.div)`
+  font-size: calc(1rem + 1.5vw);
+  color: ${(props) => props.theme.text};
+  padding: 2rem;
+  padding-top: 0;
+  word-wrap: anywhere;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  word-wrap: anywhere;
+  width: 100%;
+
+  & > *:last-child {
+    font-size: calc(0.5rem + 1.5vw);
+    font-weight: 300;
+
+    ${mediaQueries(40)`
+      font-size: calc(0.5rem + 1vw);
+    `};
+  }
+
+  ${mediaQueries(40)`
+    font-size: calc(1rem + 1.5vw);
+  `};
+  ${mediaQueries(20)`
+    padding: 1rem;
+  `};
+`;
 
 const Intro: React.FC<{ click: boolean }> = () => {
   const [height, setHeight] = useState("55vh");
+  const dappWeb3 = useDappWeb3();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(max-width: 50em)").matches) {
@@ -162,6 +196,10 @@ const Intro: React.FC<{ click: boolean }> = () => {
     if (window.matchMedia("(max-width: 20em)").matches) {
       setHeight("60vh");
     }
+
+    if (window.matchMedia("(min-width: 800px)").matches) {
+      setIsMobile(true);
+    }
   }, []);
   return (
     <Box
@@ -169,20 +207,50 @@ const Intro: React.FC<{ click: boolean }> = () => {
       animate={{ height: height }}
       transition={{ type: "spring", duration: 2, delay: 1 }}
     >
-      <SubBox>
+      <SubBox
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 2 }}
+      >
         <Text>
-          <Dapp />
+          <NewDapp />
         </Text>
       </SubBox>
-      {/* <SubBox>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2 }}
-        >
-          <img className="pic" src={Me} alt="Profile Pic" />
-        </motion.div>
-      </SubBox> */}
+      <SubBox
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 2 }}
+      >
+        <DarkText>
+          {dappWeb3.state.totalSupply < dappWeb3.state.maxSupply ? (
+            <MintWidget
+              maxSupply={dappWeb3.state.maxSupply}
+              totalSupply={dappWeb3.state.totalSupply}
+              tokenPrice={dappWeb3.state.tokenPrice}
+              maxMintAmountPerTx={dappWeb3.state.maxMintAmountPerTx}
+              isPaused={dappWeb3.state.isPaused}
+              isWhitelistMintEnabled={dappWeb3.state.isWhitelistMintEnabled}
+              isUserInWhitelist={dappWeb3.state.isUserInWhitelist}
+              mintTokens={(mintAmount) => dappWeb3.mintTokens(mintAmount)}
+              whitelistMintTokens={(mintAmount) =>
+                dappWeb3.whitelistMintTokens(mintAmount)
+              }
+            />
+          ) : (
+            <div className="collection-sold-out">
+              <h2>
+                Tokens have been <strong>sold out</strong>!{" "}
+                <span className="emoji">🥳</span>
+              </h2>
+              You can buy from our beloved holders on{" "}
+              <a href={dappWeb3.generateMarketplaceUrl()} target="_blank">
+                {CollectionConfig.marketplaceConfig.name}
+              </a>
+              .
+            </div>
+          )}
+        </DarkText>
+      </SubBox>
     </Box>
   );
 };

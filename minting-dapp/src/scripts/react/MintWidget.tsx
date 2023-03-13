@@ -1,6 +1,8 @@
 import { utils, BigNumber } from "ethers";
 import React from "react";
 import previewImg from "../../assets/images/preview.png";
+import { ButtonDark } from "../../components/styled/button";
+import styled from "styled-components";
 
 interface Props {
   maxSupply: number;
@@ -21,6 +23,71 @@ interface State {
 const defaultState: State = {
   mintAmount: 1,
 };
+
+const Img = styled.img`
+  width: 100%;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 320px) {
+    width: 100%;
+    max-height: 100%;
+  }
+`;
+const IDButton = styled.button`
+  background-color: ${(props) => props.theme.text};
+  border-width: 0;
+  color: ${(props) => props.theme.body};
+  text-decoration: none;
+  padding: 0.5rem 2rem;
+  font-size: calc(1em + 0.5vw);
+  max-width: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Controls = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  .mint-amount {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    font-size: calc(1rem + 0.5vw);
+    font-weight: 600;
+    color: ${(props) => props.theme.text};
+  }
+
+  .controls-amount {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(1rem + 0.5vw);
+    width: 100%;
+  }
+`;
+
+const Preview = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 export default class MintWidget extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -67,9 +134,9 @@ export default class MintWidget extends React.Component<Props, State> {
       <>
         {this.canMint() ? (
           <div className="mint-widget">
-            <div className="preview">
-              <img src={previewImg} alt="Collection preview" />
-            </div>
+            <Preview className="preview">
+              <Img src={previewImg} alt="Collection preview" />
+            </Preview>
 
             <div className="price">
               <strong>Total price:</strong>{" "}
@@ -79,24 +146,28 @@ export default class MintWidget extends React.Component<Props, State> {
               ETH
             </div>
 
-            <div className="controls">
-              <button
-                className="decrease"
-                onClick={() => this.decrementMintAmount()}
-              >
-                -
-              </button>
-              <span className="mint-amount">{this.state.mintAmount}</span>
-              <button
-                className="increase"
-                onClick={() => this.incrementMintAmount()}
-              >
-                +
-              </button>
-              <button className="primary" onClick={() => this.mint()}>
+            <Controls className="controls">
+              <div className="controls-amount">
+                <IDButton
+                  className="decrease"
+                  onClick={() => this.decrementMintAmount()}
+                >
+                  -
+                </IDButton>
+
+                <span className="mint-amount">{this.state.mintAmount}</span>
+
+                <IDButton
+                  className="increase"
+                  onClick={() => this.incrementMintAmount()}
+                >
+                  +
+                </IDButton>
+              </div>
+              <ButtonDark className="primary" onClick={() => this.mint()}>
                 Mint
-              </button>
-            </div>
+              </ButtonDark>
+            </Controls>
           </div>
         ) : (
           <div className="cannot-mint">

@@ -6,6 +6,7 @@ import { YinYang } from "../components/AllSvgs";
 import Intro from "../components/Intro";
 import { mediaQueries } from "../styles/Themes";
 import Loading from "../components/Loading";
+import { useDappWeb3 } from "../contexts/dapp-web3.context";
 
 const PowerButton = lazy(() => import("../components/PowerButton"));
 const SocialIcons = lazy(() => import("../components/SocialIcons"));
@@ -176,10 +177,11 @@ const DarkDiv = styled.div<{ click: boolean }>`
 `;
 
 const Main = () => {
-  const [click, setClick] = useState(false);
+  const [opened, setOpened] = useState(false);
   const [path, setpath] = useState("");
+  const dappWeb3 = useDappWeb3();
 
-  const handleClick = () => setClick(!click);
+  const handleClick = () => setOpened((prev) => !prev);
 
   const moveY = {
     y: "-100%",
@@ -198,39 +200,47 @@ const Main = () => {
         exit={path === "about" || path === "skills" ? moveY : moveX}
         transition={{ duration: 0.5 }}
       >
-        <DarkDiv click={click} />
+        <DarkDiv click={opened} />
         <Container>
-          <LogoComponent theme={click ? "dark" : "light"} />
+          <LogoComponent theme={opened ? "dark" : "light"} />
           <PowerButton />
           {mq ? (
             <SocialIcons theme="light" />
           ) : (
-            <SocialIcons theme={click ? "dark" : "light"} />
+            <SocialIcons theme={opened ? "dark" : "light"} />
           )}
-          <SocialIcons theme={click ? "dark" : "light"} />
+          <SocialIcons theme={opened ? "dark" : "light"} />
 
-          <Center click={click}>
+          <Center click={opened}>
             {mq ? (
               <YinYang
                 onClick={() => handleClick()}
-                width={click ? 80 : 150}
-                height={click ? 80 : 150}
+                width={opened ? 80 : 150}
+                height={opened ? 80 : 150}
                 fill="currentColor"
               />
             ) : (
               <YinYang
                 onClick={() => handleClick()}
-                width={click ? 120 : 200}
-                height={click ? 120 : 200}
+                width={opened ? 120 : 200}
+                height={opened ? 120 : 200}
                 fill="currentColor"
               />
             )}
             <span>click here</span>
+            <div>
+              {dappWeb3.isNotMainnet() && (
+                <div className="not-mainnet">
+                  You are not connected to the main network. Current network:
+                  <strong> {dappWeb3.state.network?.name}</strong>
+                </div>
+              )}
+            </div>
           </Center>
 
           {mq ? (
             <Contact
-              click={+click}
+              click={+opened}
               target="_blank"
               href="mailto:codebucks27@gmail.com"
             >
@@ -270,7 +280,7 @@ const Main = () => {
             </Contact>
           )}
           {mq ? (
-            <BLOG click={+click} onClick={() => setpath("blog")} to="/blog">
+            <BLOG click={+opened} onClick={() => setpath("blog")} to="/blog">
               <motion.h2
                 initial={{
                   y: -200,
@@ -302,7 +312,7 @@ const Main = () => {
               </motion.h2>
             </BLOG>
           )}
-          <WORK click={+click} to="/work">
+          <WORK click={+opened} to="/work">
             <motion.h2
               onClick={() => setpath("work")}
               initial={{
@@ -320,8 +330,8 @@ const Main = () => {
           </WORK>
           <BottomBar>
             <ABOUT
-              onClick={() => setClick(false)}
-              click={mq ? +false : +click}
+              onClick={() => setOpened(false)}
+              click={mq ? +false : +opened}
               to="/about"
             >
               <motion.h2
@@ -358,7 +368,7 @@ const Main = () => {
             </SKILLS>
           </BottomBar>
         </Container>
-        {click ? <Intro click={click} /> : null}
+        {opened ? <Intro click={opened} /> : null}
       </MainContainer>
     </Suspense>
   );

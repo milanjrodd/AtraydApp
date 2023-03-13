@@ -7,6 +7,7 @@ import "./index.css";
 import "./App.css";
 import { Suspense, lazy } from "react";
 import Loading from "./components/Loading";
+import { DappWeb3Provider } from "./contexts/dapp-web3.context";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -23,30 +24,32 @@ function App() {
 
       <ThemeProvider theme={lightTheme}>
         <Suspense fallback={<Loading />}>
-          <SoundBar />
+          <DappWeb3Provider>
+            <SoundBar />
 
-          {/* For framer-motion animation on page change! */}
-          {/* Changed prop from exitBefore to mode */}
-          <AnimatePresence mode="wait">
-            {/* Changed Switch to Routes */}
+            {/* For framer-motion animation on page change! */}
+            {/* Changed prop from exitBefore to mode */}
+            <AnimatePresence mode="wait">
+              {/* Changed Switch to Routes */}
 
-            <Routes key={location.pathname} location={location}>
-              {/* Changed component to element */}
+              <Routes key={location.pathname} location={location}>
+                {/* Changed component to element */}
 
-              <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<HomePage />} />
 
-              <Route path="/about" element={<AboutPage />} />
+                <Route path="/about" element={<AboutPage />} />
 
-              <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog" element={<BlogPage />} />
 
-              <Route path="/work" element={<WorkPage />} />
+                <Route path="/work" element={<WorkPage />} />
 
-              <Route path="/skills" element={<MySkillsPage />} />
-              {/* Below is to catch all the other routes and send the user to main component,
+                <Route path="/skills" element={<MySkillsPage />} />
+                {/* Below is to catch all the other routes and send the user to main component,
 you can add custom 404 component or message instead of Main component*/}
-              <Route path="*" element={<HomePage />} />
-            </Routes>
-          </AnimatePresence>
+                <Route path="*" element={<HomePage />} />
+              </Routes>
+            </AnimatePresence>
+          </DappWeb3Provider>
         </Suspense>
       </ThemeProvider>
     </>
