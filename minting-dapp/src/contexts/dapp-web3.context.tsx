@@ -68,6 +68,7 @@ interface Props {
     browserProvider?: ethers.providers.Web3Provider | null
   ) => Promise<void>;
   connectWallet: () => Promise<void>;
+  disconnectWallet: () => Promise<void>;
 
   mintTokens: (amount: number) => Promise<void>;
   whitelistMintTokens: (amount: number) => Promise<void>;
@@ -95,6 +96,7 @@ export const DappWeb3Context = createContext<Props>({
 
   initWallet: async () => {},
   connectWallet: async () => {},
+  disconnectWallet: async () => {},
 
   mintTokens: async () => {},
   whitelistMintTokens: async () => {},
@@ -162,7 +164,7 @@ export const DappWeb3Provider: React.FC<PropsWithChildren<{}>> = ({
   const registerWalletEvents = (browserProvider: ExternalProvider) => {
     // @ts-ignore
     browserProvider.on("accountsChanged", () => {
-      initWallet();
+      window.location.reload();
     });
 
     // @ts-ignore
@@ -257,6 +259,14 @@ export const DappWeb3Provider: React.FC<PropsWithChildren<{}>> = ({
     } catch (error) {
       setError(error);
     }
+  };
+
+  const disconnectWallet = async () => {
+    if (!provider) {
+      return;
+    }
+
+    setState(defaultState);
   };
 
   const mintTokens = async (amount: number) => {
@@ -391,6 +401,7 @@ export const DappWeb3Provider: React.FC<PropsWithChildren<{}>> = ({
         connectWallet,
         mintTokens,
         whitelistMintTokens,
+        disconnectWallet,
       }}
     >
       {children}

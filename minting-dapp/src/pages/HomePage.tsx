@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { Suspense, lazy, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { YinYang } from "../components/AllSvgs";
@@ -181,7 +181,23 @@ const Main = () => {
   const [path, setpath] = useState("");
   const dappWeb3 = useDappWeb3();
 
-  const handleClick = () => setOpened((prev) => !prev);
+  const handleClick = () => {
+    // connect wallet
+    if (!dappWeb3.isWalletConnected()) {
+      dappWeb3.connectWallet();
+    } else {
+      dappWeb3.disconnectWallet();
+    }
+    // setOpened((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (dappWeb3.isWalletConnected()) {
+      setOpened(true);
+    } else {
+      setOpened(false);
+    }
+  }, [dappWeb3.isWalletConnected()]);
 
   const moveY = {
     y: "-100%",

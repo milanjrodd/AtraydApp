@@ -107,77 +107,80 @@ export const NewDapp: React.FC<{}> = ({}) => {
         </>
       )}
 
-      {!isWalletConnected() || !isNotMainnet() ? (
-        <div className="no-wallet">
-          <div className="use-block-explorer">
-            Hey, looking for a <strong>super-safe experience</strong>?{" "}
-            <span className="emoji">😃</span>
-            <br />
-            You can interact with the smart-contract <strong>
-              directly
-            </strong>{" "}
-            through{" "}
-            <a href={generateContractUrl()} target="_blank">
-              {state.networkConfig.blockExplorer.name}
-            </a>
-            , without even connecting your wallet to this DAPP!{" "}
-            <span className="emoji">🚀</span>
-            <br />
-            <br />
-            Keep safe! <span className="emoji">❤️</span>
-          </div>
-          {!isWalletConnected() && (
-            <Button
-              className="primary"
-              disabled={provider === undefined}
-              onClick={() => connectWallet()}
-            >
-              Connect Wallet
-            </Button>
-          )}
-
-          {/* {!isWalletConnected() || state.isWhitelistMintEnabled ? (
-            <div className="merkle-proof-manual-address">
-              <h2>Whitelist Proof</h2>
-              <p>
-                Anyone can generate the proof using any public address in the
-                list, but <strong>only the owner of that address</strong> will
-                be able to make a successful transaction by using it.
-              </p>
-              {state.merkleProofManualAddressFeedbackMessage ? (
-                <div className="feedback-message">
-                  {state.merkleProofManualAddressFeedbackMessage}
-                </div>
-              ) : null}
-              <label htmlFor="merkle-proof-manual-address">
-                Public address:
-              </label>
-              <input
-                id="merkle-proof-manual-address"
-                type="text"
-                placeholder="0x000..."
-                disabled={state.userAddress !== null}
-                value={state.userAddress ?? state.merkleProofManualAddress}
-                ref={(input) => setMerkleProofManualAddressInput(input!)}
-                onChange={() => {
-                  setState((prev) => {
-                    if (!merkleProofManualAddressInput) return prev;
-
-                    return {
-                      ...prev,
-                      merkleProofManualAddress:
-                        merkleProofManualAddressInput.value,
-                    };
-                  });
-                }}
-              />{" "}
-              <button onClick={() => copyMerkleProofToClipboard()}>
-                Generate and copy to clipboard
-              </button>
+      {/* {!isWalletConnected() ||
+        (!isNotMainnet() && (
+          <div className="no-wallet">
+            <div className="use-block-explorer">
+              Hey, looking for a <strong>super-safe experience</strong>?{" "}
+              <span className="emoji">😃</span>
+              <br />
+              You can interact with the smart-contract <strong>
+                directly
+              </strong>{" "}
+              through{" "}
+              <a href={generateContractUrl()} target="_blank">
+                {state.networkConfig.blockExplorer.name}
+              </a>
+              , without even connecting your wallet to this DAPP!{" "}
+              <span className="emoji">🚀</span>
+              <br />
+              <br />
+              Keep safe! <span className="emoji">❤️</span>
             </div>
-          ) : null} */}
-        </div>
-      ) : null}
+            {!isWalletConnected() && (
+              <Button
+                className="primary"
+                disabled={provider === undefined}
+                onClick={() => connectWallet()}
+              >
+                Connect Wallet
+              </Button>
+            )}
+
+            {!isWalletConnected() ||
+              (state.isWhitelistMintEnabled && (
+                <div className="merkle-proof-manual-address">
+                  <h2>Whitelist Proof</h2>
+                  <p>
+                    Anyone can generate the proof using any public address in
+                    the list, but{" "}
+                    <strong>only the owner of that address</strong> will be able
+                    to make a successful transaction by using it.
+                  </p>
+                  {state.merkleProofManualAddressFeedbackMessage ? (
+                    <div className="feedback-message">
+                      {state.merkleProofManualAddressFeedbackMessage}
+                    </div>
+                  ) : null}
+                  <label htmlFor="merkle-proof-manual-address">
+                    Public address:
+                  </label>
+                  <input
+                    id="merkle-proof-manual-address"
+                    type="text"
+                    placeholder="0x000..."
+                    disabled={state.userAddress !== null}
+                    value={state.userAddress ?? state.merkleProofManualAddress}
+                    ref={(input) => setMerkleProofManualAddressInput(input!)}
+                    onChange={() => {
+                      setState((prev) => {
+                        if (!merkleProofManualAddressInput) return prev;
+
+                        return {
+                          ...prev,
+                          merkleProofManualAddress:
+                            merkleProofManualAddressInput.value,
+                        };
+                      });
+                    }}
+                  />{" "}
+                  <button onClick={() => copyMerkleProofToClipboard()}>
+                    Generate and copy to clipboard
+                  </button>
+                </div>
+              ))}
+          </div>
+        ))} */}
     </>
   );
 };
