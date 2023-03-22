@@ -1,0 +1,44 @@
+runtime: nodejs16
+env: standard
+instance_class: F1
+handlers:
+  - url: /(.*\.js)
+    mime_type: text/javascript
+    static_files: public/build/\1
+    upload: public/build/(.*\.js)
+  - url: /(.*\.json)
+    expiration: "3600000"
+    mime_type: application/json
+    static_files: public/build/\1
+    upload: build/(.*\.json)
+  - url: /(.*\.css)
+    mime_type: text/css
+    static_files: public/build/\1
+    upload: public/build/(.*\.css)
+  - url: /(.*\.png)
+    expiration: "604800000"
+    mime_type: image/png
+    static_files: public/build/images/\1
+    upload: public/build/images/(.*\.png)
+  - url: /(.*\.svg)
+    expiration: "604800000"
+    mime_type: image/svg
+    static_files: public/build/images/\1
+    upload: public/build/images/(.*\.svg)
+  - url: /fav.png
+    mime_type: image/png
+    static_files: public/build/images/fav.png
+    upload: public/build/images/fav.png
+  - url: /.*
+    static_files: public/index.html
+    upload: public/index.html
+  - url: .*
+    script: auto
+env_variables:
+  BUCKET_NAME: mintdapp
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+service_account: mintdapp@appspot.gserviceaccount.com
