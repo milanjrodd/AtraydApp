@@ -20,9 +20,10 @@ To deploy this application to Google Cloud, you need to have a Google Cloud acco
 
 1. Create a new project in the Google Cloud Console
 2. In the Cloud Shell, navigate to the root directory of this project
-3. Run the following command to deploy the application:
+3. Run the following commands to deploy the application:
 
    ```
+   yarn build
    gcloud app deploy
 
    ```
