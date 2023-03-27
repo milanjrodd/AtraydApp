@@ -30,11 +30,12 @@ const Line = styled(motion.span)`
 
 interface ISocialIconsProps {
   theme?: string;
+  className?: string;
 }
 
 const SocialIcons: React.FC<ISocialIconsProps> = (props) => {
   return (
-    <Icons>
+    <Icons className={props.className}>
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: [0, 1, 1.5, 1] }}

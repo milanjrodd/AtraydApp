@@ -7,6 +7,7 @@ import Intro from "../components/Intro";
 import { mediaQueries } from "../styles/Themes";
 import Loading from "../components/Loading";
 import { useDappWeb3 } from "../contexts/dapp-web3.context";
+import useMediaQuery from "../mediaQueryHook";
 
 const PowerButton = lazy(() => import("../components/PowerButton"));
 const SocialIcons = lazy(() => import("../components/SocialIcons"));
@@ -205,7 +206,8 @@ const Main = () => {
   const moveX = {
     x: `${path === "work" ? "100%" : "-100%"}`,
   };
-  const mq = window.matchMedia("(max-width: 50em)").matches;
+
+  const mq = useMediaQuery("(max-width: 50em)");
 
   return (
     <Suspense fallback={<Loading />}>
@@ -221,11 +223,10 @@ const Main = () => {
           <LogoComponent theme={opened ? "dark" : "light"} />
           <PowerButton />
           {mq ? (
-            <SocialIcons theme="light" />
+            <SocialIcons className="soc1" theme={opened ? "light" : "light"} />
           ) : (
-            <SocialIcons theme={opened ? "dark" : "light"} />
+            <SocialIcons className="soc2" theme={opened ? "dark" : "light"} />
           )}
-          <SocialIcons theme={opened ? "dark" : "light"} />
 
           <Center click={opened}>
             {mq ? (
@@ -384,7 +385,7 @@ const Main = () => {
             </SKILLS>
           </BottomBar>
         </Container>
-        {opened ? <Intro click={opened} /> : null}
+        {opened && <Intro click={opened} />}
       </MainContainer>
     </Suspense>
   );

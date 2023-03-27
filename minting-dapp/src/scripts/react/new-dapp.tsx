@@ -4,6 +4,31 @@ import CollectionStatus from "./CollectionStatus";
 import Whitelist from "../lib/Whitelist";
 import { useDappWeb3 } from "../../contexts/dapp-web3.context";
 import Button from "../../components/styled/button";
+import styled, { keyframes } from "styled-components";
+
+const rotate = keyframes`
+  from{
+      transform: rotate(0);
+  }
+  to{
+      transform: rotate(360deg);
+  }
+`;
+
+const Spinner = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  overflow: hidden;
+
+  & > :first-child {
+    max-width: 24px;
+    animation: ${rotate} infinite 2.5s linear;
+  }
+`;
 
 export const NewDapp: React.FC<{}> = ({}) => {
   const {
@@ -70,7 +95,7 @@ export const NewDapp: React.FC<{}> = ({}) => {
 
       {isWalletConnected() && (
         <>
-          {isContractReady() ? (
+          {!isContractReady() ? (
             <CollectionStatus
               userAddress={state.userAddress}
               maxSupply={state.maxSupply}
@@ -80,7 +105,7 @@ export const NewDapp: React.FC<{}> = ({}) => {
               isUserInWhitelist={state.isUserInWhitelist}
             />
           ) : (
-            <div className="collection-not-ready">
+            <Spinner className="collection-not-ready">
               <svg
                 className="spinner"
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,8 +126,10 @@ export const NewDapp: React.FC<{}> = ({}) => {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              Loading collection data...
-            </div>
+              <span className="loading-message">
+                Loading collection data...
+              </span>
+            </Spinner>
           )}
         </>
       )}

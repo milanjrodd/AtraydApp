@@ -135,6 +135,7 @@ const Text = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: 100%;
 
   & > *:last-child {
     color: ${(props) => `rgba(${props.theme.bodyRgba},0.6)`};
