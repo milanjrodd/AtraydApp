@@ -95,7 +95,7 @@ export const NewDapp: React.FC<{}> = ({}) => {
 
       {isWalletConnected() && (
         <>
-          {!isContractReady() ? (
+          {isContractReady() ? (
             <CollectionStatus
               userAddress={state.userAddress}
               maxSupply={state.maxSupply}

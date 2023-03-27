@@ -6,7 +6,7 @@ export const Button = styled.button`
   color: ${(props) => props.theme.text};
   text-decoration: none;
   padding: 0.5rem calc(2rem + 2vw);
-  font-size: calc(1em + 0.5vw);
+  font-size: calc(1rem);
   width: 100%;
   cursor: pointer;
 `;
@@ -17,7 +17,7 @@ export const ButtonDark = styled.button`
   color: ${(props) => props.theme.body};
   text-decoration: none;
   padding: 0.5rem calc(2rem + 2vw);
-  font-size: calc(1em + 0.5vw);
+  font-size: calc(1rem);
   width: 100%;
   cursor: pointer;
 `;

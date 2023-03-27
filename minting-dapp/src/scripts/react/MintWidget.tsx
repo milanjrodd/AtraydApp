@@ -26,6 +26,8 @@ const defaultState: State = {
 
 const Img = styled.img`
   width: 100%;
+  max-height: 320px;
+  max-width: 480px;
   object-fit: cover;
 
   @media (max-width: 768px) {
@@ -49,7 +51,7 @@ const IDButton = styled.button`
   color: ${(props) => props.theme.body};
   text-decoration: none;
   padding: 0.5rem 2rem;
-  font-size: calc(1em + 0.5vw);
+  font-size: 1rem;
   max-width: 40px;
   cursor: pointer;
   display: flex;
@@ -69,7 +71,7 @@ const Controls = styled.div`
     align-items: center;
     justify-content: center;
     margin: 1rem;
-    font-size: calc(1rem + 0.5vw);
+    font-size: 1rem;
     font-weight: 600;
     color: ${(props) => props.theme.text};
   }
@@ -79,7 +81,7 @@ const Controls = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    font-size: calc(1rem + 0.5vw);
+    font-size: 1rem;
     width: 100%;
   }
 `;
@@ -87,6 +89,7 @@ const Controls = styled.div`
 const Preview = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
 export default class MintWidget extends React.Component<Props, State> {

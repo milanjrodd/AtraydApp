@@ -11,6 +11,7 @@ import CollectionConfig from "../../../smart-contract/config/CollectionConfig";
 
 const Box = styled(motion.div)`
   width: 55vw;
+  max-width: 1200px;
   display: flex;
   background: linear-gradient(
         to right,
@@ -127,7 +128,7 @@ const SubBox = styled(motion.div)`
 `;
 
 const Text = styled(motion.div)`
-  font-size: calc(1rem + 1.5vw);
+  font-size: 1rem;
   color: ${(props) => props.theme.body};
   padding: 2rem;
   word-wrap: anywhere;
@@ -140,19 +141,20 @@ const Text = styled(motion.div)`
   & > *:last-child {
     color: ${(props) => `rgba(${props.theme.bodyRgba},0.6)`};
 
-    font-size: calc(0.5rem + 1.5vw);
+    font-size: calc(1.5rem);
     font-weight: 300;
 
     ${mediaQueries(40)`
-      font-size: calc(0.5rem + 1vw);
+      font-size: calc(1.5rem);
     `};
   }
 
   ${mediaQueries(40)`
-    font-size: calc(1rem + 1.5vw);
+    font-size: calc(0.5rem - 0.2vw);
   `};
+
   ${mediaQueries(20)`
-    padding: 1rem;
+    padding: 0.1rem;
   `};
 `;
 const DarkText = styled(motion.div)`
@@ -169,7 +171,7 @@ const DarkText = styled(motion.div)`
   width: 100%;
 
   & > *:last-child {
-    font-size: calc(0.5rem + 1.5vw);
+    font-size: calc(1.5rem);
     font-weight: 300;
 
     ${mediaQueries(40)`
@@ -180,6 +182,7 @@ const DarkText = styled(motion.div)`
   ${mediaQueries(40)`
     font-size: calc(1rem + 1.5vw);
   `};
+
   ${mediaQueries(20)`
     padding: 1rem;
   `};
