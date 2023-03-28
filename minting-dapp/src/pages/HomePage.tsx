@@ -184,12 +184,14 @@ const Main = () => {
 
   const handleClick = () => {
     // connect wallet
-    if (!dappWeb3.isWalletConnected()) {
+    setOpened((prev) => {
+      if (dappWeb3.isWalletConnected()) {
+        return !prev;
+      }
+
       dappWeb3.connectWallet();
-    } else {
-      dappWeb3.disconnectWallet();
-    }
-    // setOpened((prev) => !prev);
+      return prev;
+    });
   };
 
   useEffect(() => {
