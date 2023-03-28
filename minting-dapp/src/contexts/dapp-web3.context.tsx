@@ -27,6 +27,7 @@ interface State {
   merkleProofManualAddress: string;
   merkleProofManualAddressFeedbackMessage: string | JSX.Element | null;
   errorMessage: string | JSX.Element | null;
+  unsupportedNetwork: boolean;
 }
 
 const defaultState: State = {
@@ -43,6 +44,7 @@ const defaultState: State = {
   merkleProofManualAddress: "",
   merkleProofManualAddressFeedbackMessage: null,
   errorMessage: null,
+  unsupportedNetwork: false,
 };
 
 interface Props {
@@ -191,12 +193,21 @@ export const DappWeb3Provider: React.FC<PropsWithChildren<{}>> = ({
 
     const network = await browserProvider.getNetwork();
     let networkConfig: NetworkConfigInterface;
+    console.log(network);
 
     if (network.chainId === CollectionConfig.mainnet.chainId) {
       networkConfig = CollectionConfig.mainnet;
     } else if (network.chainId === CollectionConfig.testnet.chainId) {
       networkConfig = CollectionConfig.testnet;
     } else {
+      setState((prev) => {
+        return {
+          ...prev,
+          network,
+          unsupportedNetwork: true,
+        };
+      });
+      console.error("Unsupported network!");
       setError("Unsupported network!");
 
       return;

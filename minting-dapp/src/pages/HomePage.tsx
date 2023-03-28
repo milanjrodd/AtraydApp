@@ -183,6 +183,10 @@ const Main = () => {
   const dappWeb3 = useDappWeb3();
 
   const handleClick = () => {
+    if (dappWeb3.state.unsupportedNetwork) {
+      return;
+    }
+
     // connect wallet
     setOpened((prev) => {
       if (dappWeb3.isWalletConnected()) {
@@ -248,7 +252,8 @@ const Main = () => {
             )}
             <span>click here</span>
             <div>
-              {dappWeb3.isNotMainnet() && (
+              {(dappWeb3.isNotMainnet() ||
+                dappWeb3.state.unsupportedNetwork) && (
                 <div className="not-mainnet">
                   You are not connected to the main network. Current network:
                   <strong> {dappWeb3.state.network?.name}</strong>
